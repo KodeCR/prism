@@ -1,0 +1,6 @@
+[submodule "monocle"]
+	path = monocle
+	url = git@github.com:KodeCR/monocle.git
+[submodule "kaleidoscope"]
+	path = kaleidoscope
+	url = git@github.com:KodeCR/kaleidoscope.git
