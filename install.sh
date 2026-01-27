@@ -2,9 +2,19 @@
 
 # install Homebrew package manager, which also install Xcode Command Line Tools
 which -s brew
-if [[ $? != 0 ]] ; then
+if [[ $? != 0 ]]; then
+    # Check sudo access
+    if ! sudo -l mkdir &> /dev/null; then
+        export SU=$(whoami);
+        echo -n 'Admin username: '; read ADMIN
+        su $ADMIN -c 'echo "$SU ALL=(ALL) /bin/mkdir,/usr/bin/install,/usr/sbin/chown,/usr/bin/chgrp,/usr/bin/tee,/bin/chmod,/bin/rm,/usr/bin/find" | sudo tee /etc/sudoers.d/$SU > /dev/null'
+    fi
     # Install Homebrew
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    if [[ $SHELL ]]; then SH_PROF=.zprofile; else SH_PROF=.bash_profile; fi
+    echo >> /Users/$USER/$SH_PROF
+    echo 'eval "$(/usr/local/bin/brew shellenv zsh)"' >> /Users/$USER/$SH_PROF
+    eval "$(/usr/local/bin/brew shellenv zsh)"    
 else
     brew update
 fi
