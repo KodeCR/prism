@@ -31,14 +31,15 @@ brew install docker docker-buildx docker-compose
 # INS=",\n\t\"cliPluginsExtraDirs\": [\n\t\t\"$HOMEBREW_PREFIX/lib/docker/cli-plugins\"\n\t]"
 # sed -i "" "s|\"currentContext\": \"colima\"|\"currentContext\": \"colima\"${INS}|" ~/.docker/config.json
 # mkdir -p ~/.docker/certs.d && cp certs/* ~/.docker/certs.d
+cp -r monocle/containers/monocle/certs/. ~/.docker/certs.d
 
 # if using container registry then build multi-platform
 # if multi-platform and macos arm then vz and rosetta
 # if multi-platform and macos intel then qemu
-ROSETTA=''
+ROSETTA=""
 if [[ $(arch) == 'arm64' ]]; then
     softwareupdate --install-rosetta
-    ROSETTA='--vz-rosetta'
+    ROSETTA="--vz-rosetta"
 fi
 
 # enable multi-platform builds
