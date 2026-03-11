@@ -1,0 +1,10 @@
+load("@rules_cc//cc:defs.bzl", "cc_binary")
+
+cc_binary(
+  name = "hellouart",
+  srcs = ["src/hellouart.c"],
+  target_compatible_with = ["@platforms//cpu:riscv64", "@platforms//os:none"],
+)
+
+# docker run --rm -v ./:/kaleidoscope riscv-llvm-toolchain clang -march=rv64i_zicsr -mcmodel=medany -ffreestanding -O0 -g -Wall -Wextra -fuse-ld=lld -nostdlib -T src/kernel.ld src/entry.s src/kernel.c -o helloworld
+# docker run --rm -it -v.:/kaleidoscope riscv-qemu qemu-system-riscv64 -machine virt -bios kernel.elf -nographic
