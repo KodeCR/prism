@@ -1,0 +1,88 @@
+/dts-v1/;
+
+/ {
+	model = "prism";
+	compatible = "prism";
+	#address-cells = <0x02>;
+	#size-cells = <0x02>;
+
+	cpus {
+		#address-cells = <0x01>;
+		#size-cells = <0x00>;
+		timebase-frequency = <0xf4240>;
+
+		cpu@0 {
+			device_type = "cpu";
+			reg = <0x00>;
+			status = "okay";
+			compatible = "riscv";
+			riscv,isa = "rv64acdfimsuv";
+			mmu-type = "riscv,sv48";
+			clock-frequency = <0x77359400>;
+
+			interrupt-controller {
+				#interrupt-cells = <0x01>;
+				interrupt-controller;
+				compatible = "riscv,cpu-intc";
+				phandle = <0x01>;
+			};
+		};
+	};
+
+	memory@80000000 {
+		device_type = "memory";
+		reg = <0x00 0x80000000 0x00 0x80000000>;
+	};
+
+	soc {
+		#address-cells = <0x02>;
+		#size-cells = <0x02>;
+		compatible = "fabric";
+		ranges;
+
+		rom@10000 {
+			compatible = "sifive,maskrom0";
+			reg = <0x0 0x10000 0x0 0x8000>;
+			reg-names = "mem";
+		};
+
+		clint@2000000 {
+			compatible = "riscv,clint0";
+			interrupts-extended = <0x01 0x03 0x01 0x07>;
+			reg = <0x00 0x2000000 0x00 0x10000>;
+		};
+
+		plic@c000000 {
+			#interrupt-cells = <0x01>;
+			interrupt-controller;
+			compatible = "riscv,plic0";
+			riscv,ndev = <0x1f>;
+			reg = <0x00 0xc000000 0x00 0x600000>;
+			interrupts-extended = <0x01 0x09 0x01 0x0b>;
+			phandle = <0x02>;
+		};
+
+		virtio@40010000 {
+			compatible = "virtio,mmio";
+			reg = <0x00 0x40010000 0x00 0x1000>;
+			interrupts-extended = <0x02 0x04>;
+		};
+
+		uart@10000000 {
+			reg = <0x00 0x10000000 0x00 0x20>;
+			current-speed = <0x1c200>;
+			clock-frequency = <0x17d7840>;
+			reg-shift = <0x00>;
+			reg-io-width = <0x01>;
+			compatible = "ns16550a";
+			interrupt-parent = <0x02>;
+			interrupts = <0x03>;
+		};
+	};
+
+	chosen {
+		bootargs = "root=/dev/ram rw earlycon=sbi console=hvc0";
+		linux,initrd-start = <0x00 0x00000000 0xff860000>;
+		linux,initrd-end = <0x00 0x00000001 0x00000000>;
+	};
+};
