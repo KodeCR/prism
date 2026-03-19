@@ -1,0 +1,15 @@
+.github
+barebones
+cygwin
+docs
+freebsd
+linux
+macos
+posix
+rtems
+simple
+zephyr
+core*
+LICENSE.md
+Makefile
+README.md
