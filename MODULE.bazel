@@ -1,6 +1,10 @@
+"""Prism"""
 module(name = "prism", version = "0.1.0")
 
+bazel_dep(name = "platforms", version = "1.0.0")
+bazel_dep(name = "rules_cc", version = "0.2.17")
+
 bazel_dep(name = "monocle", version = "0.1.0")
-local_path_override(module_name = "monocle", path = "monocle/monocle")
+local_path_override(module_name = "monocle", path = "monocle")
 bazel_dep(name = "kaleidoscope", version = "0.1.0")
-local_path_override(module_name = "kaleidoscope", path = "kaleidoscope/kaleidoscope")
+local_path_override(module_name = "kaleidoscope", path = "kaleidoscope")
