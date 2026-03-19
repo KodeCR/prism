@@ -1,1 +1,3 @@
-build --symlink_prefix=build/ --strategy Monocle=local
+# Prism
+build --symlink_prefix=build/ --host_action=PATH --action_env=PATH --strategy Monocle=local
+build:none --platforms=
