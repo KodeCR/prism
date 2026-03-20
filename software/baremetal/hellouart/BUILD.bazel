@@ -2,7 +2,9 @@ load("@rules_cc//cc:defs.bzl", "cc_binary")
 
 cc_binary(
   name = "hellouart",
-  srcs = ["src/hellouart.c"],
+  srcs = ["src/crt0.s", "src/hellouart.c"],
+  additional_linker_inputs = ["src/hellouart.ld"],
+  linkopts = ["-nostdlib", "-T $(location src/hellouart.ld)"],
   target_compatible_with = ["@platforms//cpu:riscv64", "@platforms//os:none"],
 )
 
