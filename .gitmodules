@@ -4,3 +4,6 @@
 [submodule "kaleidoscope"]
 	path = kaleidoscope
 	url = https://github.com/KodeCR/kaleidoscope.git
+[submodule "ignite"]
+	path = ignite
+	url = git@github.com:KodeCR/ignite.git
