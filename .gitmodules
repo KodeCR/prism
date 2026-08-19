@@ -7,3 +7,6 @@
 [submodule "ignite"]
 	path = ignite
 	url = git@github.com:KodeCR/ignite.git
+[submodule "spectra"]
+	path = spectra
+	url = git@github.com:KodeCR/spectra.git
